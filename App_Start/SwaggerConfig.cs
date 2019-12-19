@@ -154,6 +154,8 @@ namespace dcportal_api
                         // more Xml comment files.
                         //
                         //c.IncludeXmlComments(GetXmlCommentsPath());
+                        c.IncludeXmlComments($"{System.AppDomain.CurrentDomain.BaseDirectory}\\bin\\dcportal_api.xml");
+
 
                         // In contrast to WebApi, Swagger 2.0 does not include the query string component when mapping a URL
                         // to an action. As a result, Swashbuckle will raise an exception if it encounters multiple actions

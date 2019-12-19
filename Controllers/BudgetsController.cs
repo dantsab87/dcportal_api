@@ -24,5 +24,20 @@ namespace dcportal_api.Controllers
         {
             return await db.GetBudgetDetails(id);
         }
+
+
+
+        /// <summary>
+        /// Add a Budget
+        /// </summary>
+        /// <param name="hhId">Household Id</param>
+        /// <param name="ownerId">Owner Id</param>
+        /// <param name="name">Name of Budget</param>
+        /// <returns>Create a Budget</returns>
+        [HttpPost, Route("AddBudget")]
+        public IHttpActionResult AddBudget(int hhId, string ownerId, string name)
+        {
+            return Ok(db.AddBudget(hhId, ownerId, name));
+        }
     }
 }

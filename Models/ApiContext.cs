@@ -21,6 +21,54 @@ namespace dcportal_api.Models
             return new ApiContext();
         }
 
+
+
+        public async Task<Household> AddHousehold(string name, string greeting)
+        {
+            return await Database.SqlQuery<Household>("AddHousehold @name, @greeting",
+            new SqlParameter("name", name),
+            new SqlParameter("greeting", greeting)).FirstOrDefaultAsync();
+        }
+
+
+
+        public async Task<BankAccount> AddBankAccount(int hhId, string ownerId, string name, int accountType)
+        {
+            return await Database.SqlQuery<BankAccount>("AddBankAccount @hhId, @ownerId, @name, @accountType",
+            new SqlParameter("hhId", hhId),
+            new SqlParameter("ownerId", ownerId),
+            new SqlParameter("name", name),
+            new SqlParameter("accountType", accountType)).FirstOrDefaultAsync();
+        }
+
+
+        public async Task<Budget> AddBudget(int hhId, string ownerId, string name)
+        {
+            return await Database.SqlQuery<Budget>("AddBudget @hhId, @ownerId, @name",
+            new SqlParameter("hhId", hhId),
+            new SqlParameter("ownerId", ownerId),
+            new SqlParameter("name", name)).FirstOrDefaultAsync();
+        }
+
+        public async Task<Transaction> AddTransaction(int bankAccId, int budgetItemId, string ownerId, int transType, float amount, string memo)
+        {
+            return await Database.SqlQuery<Transaction>("AddTransaction @bankAccId, @budgetItemId, @ownerId, @transType, @amount, @memo",
+            new SqlParameter("bankAccId", bankAccId),
+            new SqlParameter("budgetItemId", budgetItemId),
+            new SqlParameter("ownerId", ownerId),
+            new SqlParameter("transType", transType),
+            new SqlParameter("amount", amount),
+            new SqlParameter("memo", memo)).FirstOrDefaultAsync();
+        }
+
+
+
+
+
+
+
+
+
         public async Task<List<Household>> GetAllHouseholdData()
         {
             return await Database.SqlQuery<Household>("GetAllHouseholdData").ToListAsync();
