@@ -30,7 +30,7 @@ namespace dcportal_api.Models
 
 
 
-        public int AddBankAccount(int hhId, string ownerId, string name, int accountType, int startBal, int currentBal, int lowBal)
+        public int AddBankAccount(int hhId, string ownerId, string name, AccountType accountType, float startBal, float currentBal, float lowBal)
         {
             return Database.ExecuteSqlCommand("AddBankAccount @hhId, @ownerId, @name, @accountType, @startBal, @currentBal, @lowBal",
             new SqlParameter("hhId", hhId),
@@ -43,7 +43,7 @@ namespace dcportal_api.Models
         }
 
 
-        public int AddBudget(int hhId, string ownerId, string name, int targetAmount, int currentAmount)
+        public int AddBudget(int hhId, string ownerId, string name, float targetAmount, float currentAmount)
         {
             return Database.ExecuteSqlCommand("AddBudget @hhId, @ownerId, @name, @targetAmount, @currentAmount",
             new SqlParameter("hhId", hhId),
@@ -55,7 +55,7 @@ namespace dcportal_api.Models
 
 
 
-        public int AddBudgetItem(int budgetId, string name, int targetAmount, int currentAmount)
+        public int AddBudgetItem(int budgetId, string name, float targetAmount, float currentAmount)
         {
             return Database.ExecuteSqlCommand("AddBudgetItem @budgetId, @name, @targetAmount, @currentAmount",
             new SqlParameter("budgetId", budgetId),
@@ -65,7 +65,7 @@ namespace dcportal_api.Models
         }
 
 
-        public int AddTransaction(int bankAccId, int budgetItemId, string ownerId, int transType, float amount, string memo)
+        public int AddTransaction(int bankAccId, int budgetItemId, string ownerId, TransactionType transType, float amount, string memo)
         {
             return Database.ExecuteSqlCommand("AddTransaction @bankAccId, @budgetItemId, @ownerId, @transType, @amount, @memo",
             new SqlParameter("bankAccId", bankAccId),
@@ -221,22 +221,24 @@ namespace dcportal_api.Models
 
 
 
-        public int UpdateBankAccount(int hhId, string ownerId, string name, int accountType, int startBal, int currentBal, int lowBal)
+        public int UpdateBankAccount(int id, int hhId, string ownerId, string name, AccountType accountType, float startBal, float currentBal, float lowBal)
         {
-            return Database.ExecuteSqlCommand("UpdateBankAccount @hhId, @ownerId, @name, @accountType, @startBal, @currentBal, @lowBal",
+            return Database.ExecuteSqlCommand("UpdateBankAccount @id, @hhId, @ownerId, @name, @accountType, @startBal, @currentBal, @lowBal",
+            new SqlParameter("Id", id),
             new SqlParameter("hhId", hhId),
             new SqlParameter("ownerId", ownerId),
             new SqlParameter("name", name),
-            new SqlParameter("accountType", accountType),
+            new SqlParameter("accountType", (int)accountType),
             new SqlParameter("startBal", startBal),
             new SqlParameter("currentBal", currentBal),
             new SqlParameter("lowBal", lowBal));
         }
 
 
-        public int UpdateBudget(int hhId, string ownerId, string name, int targetAmount, int currentAmount)
+        public int UpdateBudget(int id, int hhId, string ownerId, string name, float targetAmount, float currentAmount)
         {
-            return Database.ExecuteSqlCommand("UpdateBudget @hhId, @ownerId, @name, @targetAmount, @currentAmount",
+            return Database.ExecuteSqlCommand("UpdateBudget @id, @hhId, @ownerId, @name, @targetAmount, @currentAmount",
+            new SqlParameter("id", id),
             new SqlParameter("hhId", hhId),
             new SqlParameter("ownerId", ownerId),
             new SqlParameter("name", name),
@@ -246,9 +248,10 @@ namespace dcportal_api.Models
 
 
 
-        public int UpdateBudgetItem(int budgetId, string name, int targetAmount, int currentAmount)
+        public int UpdateBudgetItem(int id, int budgetId, string name, float targetAmount, float currentAmount)
         {
-            return Database.ExecuteSqlCommand("UpdateBudgetItem @budgetId, @name, @targetAmount, @currentAmount",
+            return Database.ExecuteSqlCommand("UpdateBudgetItem @id, @budgetId, @name, @targetAmount, @currentAmount",
+            new SqlParameter("id",id),
             new SqlParameter("budgetId", budgetId),
             new SqlParameter("name", name),
             new SqlParameter("targetAmount", targetAmount),
@@ -256,13 +259,14 @@ namespace dcportal_api.Models
         }
 
 
-        public int UpdateTransaction(int bankAccId, int budgetItemId, string ownerId, int transType, float amount, string memo)
+        public int UpdateTransaction(int id, int bankAccId, int budgetItemId, string ownerId, TransactionType transType, float amount, string memo)
         {
-            return Database.ExecuteSqlCommand("UpdateTransaction @bankAccId, @budgetItemId, @ownerId, @transType, @amount, @memo",
+            return Database.ExecuteSqlCommand("UpdateTransaction @id, @bankAccId, @budgetItemId, @ownerId, @transType, @amount, @memo",
+            new SqlParameter("id",id),
             new SqlParameter("bankAccId", bankAccId),
             new SqlParameter("budgetItemId", budgetItemId),
             new SqlParameter("ownerId", ownerId),
-            new SqlParameter("transType", transType),
+            new SqlParameter("transType", (int)transType),
             new SqlParameter("amount", amount),
             new SqlParameter("memo", memo));
         }

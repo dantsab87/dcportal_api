@@ -37,7 +37,7 @@ namespace dcportal_api.Controllers
         /// <param name="currentAmount">Current Amount</param>
         /// <returns>Create a Budget</returns>
         [HttpPost, Route("AddBudget")]
-        public IHttpActionResult AddBudget(int hhId, string ownerId, string name, int targetAmount, int currentAmount)
+        public IHttpActionResult AddBudget(int hhId, string ownerId, string name, float targetAmount, float currentAmount)
         {
             return Ok(db.AddBudget(hhId, ownerId, name, targetAmount, currentAmount));
         }
@@ -47,6 +47,7 @@ namespace dcportal_api.Controllers
         /// <summary>
         /// Update Budget
         /// </summary>
+        /// <param name="id">PK Id</param>
         /// <param name="hhId">Household Id</param>
         /// <param name="ownerId">Owner Id</param>
         /// <param name="name">Name of Budget</param>
@@ -54,9 +55,9 @@ namespace dcportal_api.Controllers
         /// <param name="currentAmount">Current Amount</param>
         /// <returns>Update a Budget</returns>
         [HttpPut, Route("UpdateBudget")]
-        public IHttpActionResult UpdateBudget(int hhId, string ownerId, string name, int targetAmount, int currentAmount)
+        public IHttpActionResult UpdateBudget(int id, int hhId, string ownerId, string name, float targetAmount, float currentAmount)
         {
-            return Ok(db.UpdateBudget(hhId, ownerId, name, targetAmount, currentAmount));
+            return Ok(db.UpdateBudget(id, hhId, ownerId, name, targetAmount, currentAmount));
         }
 
 

@@ -38,7 +38,7 @@ namespace dcportal_api.Controllers
         /// <param name="memo">Memo</param>
         /// <returns>Create a Transaction</returns>
         [HttpPost, Route("AddTransaction")]
-        public IHttpActionResult AddTransaction(int bankAccId, int budgetItemId, string ownerId, int transType, float amount, string memo)
+        public IHttpActionResult AddTransaction(int bankAccId, int budgetItemId, string ownerId, TransactionType transType, float amount, string memo)
         {
             return Ok(db.AddTransaction(bankAccId, budgetItemId, ownerId, transType, amount, memo));
         }
@@ -47,6 +47,7 @@ namespace dcportal_api.Controllers
         /// <summary>
         /// Update Transaction
         /// </summary>
+        /// <param name="id">PK Id</param>
         /// <param name="bankAccId">Bank Account Id</param>
         /// <param name="budgetItemId">Budget Item Id</param>
         /// <param name="ownerId">Owner Id</param>
@@ -55,9 +56,9 @@ namespace dcportal_api.Controllers
         /// <param name="memo">Memo</param>
         /// <returns>Update a Transaction</returns>
         [HttpPut, Route("UpdateTransaction")]
-        public IHttpActionResult UpdateTransaction(int bankAccId, int budgetItemId, string ownerId, int transType, float amount, string memo)
+        public IHttpActionResult UpdateTransaction(int id, int bankAccId, int budgetItemId, string ownerId, TransactionType transType, float amount, string memo)
         {
-            return Ok(db.UpdateTransaction(bankAccId, budgetItemId, ownerId, transType, amount, memo));
+            return Ok(db.UpdateTransaction(id, bankAccId, budgetItemId, ownerId, transType, amount, memo));
         }
 
 
