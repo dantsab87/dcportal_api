@@ -49,5 +49,29 @@ namespace dcportal_api.Controllers
             return Ok(db.AddHousehold(name, greeting));
         }
 
+        /// <summary>
+        /// Delete a Household
+        /// </summary>
+        /// <param name="id">Household Id</param>
+        /// <param name="name">Household Name</param>
+        /// <param name="greeting">Household Greeting</param>
+        /// <returns>Delete Household</returns>
+        [HttpPut, Route("UpdateHousehold")]
+        public IHttpActionResult UpdateHousehold(int id, string name, string greeting)
+        {
+            return Ok(db.UpdateHousehold(id, name, greeting));
+        }
+
+        /// <summary>
+        /// Delete a Household
+        /// </summary>
+        /// <param name="id">Household Id</param>
+        /// <returns>Delete Household</returns>
+        [HttpDelete, Route("DeleteHousehold")]
+        public IHttpActionResult DeleteHousehold(int id)
+        {
+            return Ok(db.DeleteHousehold(id));
+        }
+
     }
 }

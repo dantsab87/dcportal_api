@@ -33,11 +33,44 @@ namespace dcportal_api.Controllers
         /// <param name="hhId">Household Id</param>
         /// <param name="ownerId">Owner Id</param>
         /// <param name="name">Name of Budget</param>
+        /// <param name="targetAmount">Target Amount</param>
+        /// <param name="currentAmount">Current Amount</param>
         /// <returns>Create a Budget</returns>
         [HttpPost, Route("AddBudget")]
-        public IHttpActionResult AddBudget(int hhId, string ownerId, string name)
+        public IHttpActionResult AddBudget(int hhId, string ownerId, string name, int targetAmount, int currentAmount)
         {
-            return Ok(db.AddBudget(hhId, ownerId, name));
+            return Ok(db.AddBudget(hhId, ownerId, name, targetAmount, currentAmount));
         }
+
+
+
+        /// <summary>
+        /// Update Budget
+        /// </summary>
+        /// <param name="hhId">Household Id</param>
+        /// <param name="ownerId">Owner Id</param>
+        /// <param name="name">Name of Budget</param>
+        /// <param name="targetAmount">Target Amount</param>
+        /// <param name="currentAmount">Current Amount</param>
+        /// <returns>Update a Budget</returns>
+        [HttpPut, Route("UpdateBudget")]
+        public IHttpActionResult UpdateBudget(int hhId, string ownerId, string name, int targetAmount, int currentAmount)
+        {
+            return Ok(db.UpdateBudget(hhId, ownerId, name, targetAmount, currentAmount));
+        }
+
+
+
+        /// <summary>
+        /// Delete a Budget
+        /// </summary>
+        /// <param name="id">Budget Id</param>
+        /// <returns>Delete a Budget</returns>
+        [HttpDelete, Route("DeleteBudget")]
+        public IHttpActionResult DeleteBudget(int id)
+        {
+            return Ok(db.DeleteBudget(id));
+        }
+        
     }
 }

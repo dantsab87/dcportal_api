@@ -27,10 +27,6 @@ namespace dcportal_api.Controllers
 
 
 
-
-
-
-
         /// <summary>
         /// Add a Transaction
         /// </summary>
@@ -45,6 +41,35 @@ namespace dcportal_api.Controllers
         public IHttpActionResult AddTransaction(int bankAccId, int budgetItemId, string ownerId, int transType, float amount, string memo)
         {
             return Ok(db.AddTransaction(bankAccId, budgetItemId, ownerId, transType, amount, memo));
+        }
+
+
+        /// <summary>
+        /// Update Transaction
+        /// </summary>
+        /// <param name="bankAccId">Bank Account Id</param>
+        /// <param name="budgetItemId">Budget Item Id</param>
+        /// <param name="ownerId">Owner Id</param>
+        /// <param name="transType">Transaction Type</param>
+        /// <param name="amount">Amount</param>
+        /// <param name="memo">Memo</param>
+        /// <returns>Update a Transaction</returns>
+        [HttpPut, Route("UpdateTransaction")]
+        public IHttpActionResult UpdateTransaction(int bankAccId, int budgetItemId, string ownerId, int transType, float amount, string memo)
+        {
+            return Ok(db.UpdateTransaction(bankAccId, budgetItemId, ownerId, transType, amount, memo));
+        }
+
+
+        /// <summary>
+        /// Delete Transaction
+        /// </summary>
+        /// <param name="id">Transaction Id</param>
+        /// <returns>Delete a Transaction</returns>
+        [HttpDelete, Route("DeleteTransaction")]
+        public IHttpActionResult DeleteTransaction(int id)
+        {
+            return Ok(db.DeleteTransaction(id));
         }
     }
 }

@@ -21,49 +21,60 @@ namespace dcportal_api.Models
             return new ApiContext();
         }
 
-
-
-        public async Task<Household> AddHousehold(string name, string greeting)
+        public int AddHousehold(string name, string greeting)
         {
-            return await Database.SqlQuery<Household>("AddHousehold @name, @greeting",
+            return Database.ExecuteSqlCommand("AddHousehold @name, @greeting",
             new SqlParameter("name", name),
-            new SqlParameter("greeting", greeting)).FirstOrDefaultAsync();
+            new SqlParameter("greeting", greeting));
         }
 
 
 
-        public async Task<BankAccount> AddBankAccount(int hhId, string ownerId, string name, int accountType)
+        public int AddBankAccount(int hhId, string ownerId, string name, int accountType, int startBal, int currentBal, int lowBal)
         {
-            return await Database.SqlQuery<BankAccount>("AddBankAccount @hhId, @ownerId, @name, @accountType",
+            return Database.ExecuteSqlCommand("AddBankAccount @hhId, @ownerId, @name, @accountType, @startBal, @currentBal, @lowBal",
             new SqlParameter("hhId", hhId),
             new SqlParameter("ownerId", ownerId),
             new SqlParameter("name", name),
-            new SqlParameter("accountType", accountType)).FirstOrDefaultAsync();
+            new SqlParameter("accountType", accountType),
+            new SqlParameter("startBal", startBal),
+            new SqlParameter("currentBal", currentBal),
+            new SqlParameter("lowBal", lowBal));
         }
 
 
-        public async Task<Budget> AddBudget(int hhId, string ownerId, string name)
+        public int AddBudget(int hhId, string ownerId, string name, int targetAmount, int currentAmount)
         {
-            return await Database.SqlQuery<Budget>("AddBudget @hhId, @ownerId, @name",
+            return Database.ExecuteSqlCommand("AddBudget @hhId, @ownerId, @name, @targetAmount, @currentAmount",
             new SqlParameter("hhId", hhId),
             new SqlParameter("ownerId", ownerId),
-            new SqlParameter("name", name)).FirstOrDefaultAsync();
+            new SqlParameter("name", name),
+            new SqlParameter("targetAmount", targetAmount),
+            new SqlParameter("currentAmount", currentAmount));
         }
 
-        public async Task<Transaction> AddTransaction(int bankAccId, int budgetItemId, string ownerId, int transType, float amount, string memo)
+
+
+        public int AddBudgetItem(int budgetId, string name, int targetAmount, int currentAmount)
         {
-            return await Database.SqlQuery<Transaction>("AddTransaction @bankAccId, @budgetItemId, @ownerId, @transType, @amount, @memo",
+            return Database.ExecuteSqlCommand("AddBudgetItem @budgetId, @name, @targetAmount, @currentAmount",
+            new SqlParameter("budgetId", budgetId),
+            new SqlParameter("name", name),
+            new SqlParameter("targetAmount", targetAmount),
+            new SqlParameter("currentAmount", currentAmount));
+        }
+
+
+        public int AddTransaction(int bankAccId, int budgetItemId, string ownerId, int transType, float amount, string memo)
+        {
+            return Database.ExecuteSqlCommand("AddTransaction @bankAccId, @budgetItemId, @ownerId, @transType, @amount, @memo",
             new SqlParameter("bankAccId", bankAccId),
             new SqlParameter("budgetItemId", budgetItemId),
             new SqlParameter("ownerId", ownerId),
             new SqlParameter("transType", transType),
             new SqlParameter("amount", amount),
-            new SqlParameter("memo", memo)).FirstOrDefaultAsync();
+            new SqlParameter("memo", memo));
         }
-
-
-
-
 
 
 
@@ -135,6 +146,126 @@ namespace dcportal_api.Models
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public int DeleteHousehold(int id)
+        {
+            return Database.ExecuteSqlCommand("DeleteHousehold @id",
+            new SqlParameter("Id", id));
+        }
+
+
+
+        public int DeleteBankAccount(int id)
+        {
+            return Database.ExecuteSqlCommand("DeleteBankAccount @id",
+            new SqlParameter("Id", id));
+        }
+
+
+        public int DeleteBudget(int id)
+        {
+            return Database.ExecuteSqlCommand("DeleteBudget @id",
+            new SqlParameter("Id", id));
+        }
+
+
+
+        public int DeleteBudgetItem(int id)
+        {
+            return Database.ExecuteSqlCommand("DeleteBudgetItems @id",
+            new SqlParameter("Id", id));
+        }
+
+
+        public int DeleteTransaction(int id)
+        {
+            return Database.ExecuteSqlCommand("DeleteTransaction @id",
+            new SqlParameter("Id", id));
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public int UpdateHousehold(int id, string name, string greeting)
+        {
+            return Database.ExecuteSqlCommand("UpdateHousehold @id, @name, @greeting",
+            new SqlParameter("id", id),
+            new SqlParameter("name", name),
+            new SqlParameter("greeting", greeting));
+        }
+
+
+
+        public int UpdateBankAccount(int hhId, string ownerId, string name, int accountType, int startBal, int currentBal, int lowBal)
+        {
+            return Database.ExecuteSqlCommand("UpdateBankAccount @hhId, @ownerId, @name, @accountType, @startBal, @currentBal, @lowBal",
+            new SqlParameter("hhId", hhId),
+            new SqlParameter("ownerId", ownerId),
+            new SqlParameter("name", name),
+            new SqlParameter("accountType", accountType),
+            new SqlParameter("startBal", startBal),
+            new SqlParameter("currentBal", currentBal),
+            new SqlParameter("lowBal", lowBal));
+        }
+
+
+        public int UpdateBudget(int hhId, string ownerId, string name, int targetAmount, int currentAmount)
+        {
+            return Database.ExecuteSqlCommand("UpdateBudget @hhId, @ownerId, @name, @targetAmount, @currentAmount",
+            new SqlParameter("hhId", hhId),
+            new SqlParameter("ownerId", ownerId),
+            new SqlParameter("name", name),
+            new SqlParameter("targetAmount", targetAmount),
+            new SqlParameter("currentAmount", currentAmount));
+        }
+
+
+
+        public int UpdateBudgetItem(int budgetId, string name, int targetAmount, int currentAmount)
+        {
+            return Database.ExecuteSqlCommand("UpdateBudgetItem @budgetId, @name, @targetAmount, @currentAmount",
+            new SqlParameter("budgetId", budgetId),
+            new SqlParameter("name", name),
+            new SqlParameter("targetAmount", targetAmount),
+            new SqlParameter("currentAmount", currentAmount));
+        }
+
+
+        public int UpdateTransaction(int bankAccId, int budgetItemId, string ownerId, int transType, float amount, string memo)
+        {
+            return Database.ExecuteSqlCommand("UpdateTransaction @bankAccId, @budgetItemId, @ownerId, @transType, @amount, @memo",
+            new SqlParameter("bankAccId", bankAccId),
+            new SqlParameter("budgetItemId", budgetItemId),
+            new SqlParameter("ownerId", ownerId),
+            new SqlParameter("transType", transType),
+            new SqlParameter("amount", amount),
+            new SqlParameter("memo", memo));
+        }
     }
 }
 
